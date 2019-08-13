@@ -16,7 +16,13 @@ const IndexPage = ({ data }) => (
             <Link to={`/${document.node.id}`}>{document.node.title}</Link>
           </h2>
           <Img fixed={document.node.image.childImageSharp.fixed} />
-          <ReactMarkdown source={document.node.content} />
+          <ReactMarkdown
+            source={document.node.content.substring(0, 500).concat("...")}
+            transformImageUri={uri => uri.startsWith('http') ? uri : `${process.env.IMAGE_BASE_URL}${uri}`}
+          />
+
+          <Link to={`/${document.node.id}`}>Read more</Link>
+
         </li>
       ))}
     </ul>
